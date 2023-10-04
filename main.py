@@ -43,13 +43,10 @@ def index():
         db.session.commit()
         message_body = f"Thank you for your submission, {first_name}! Here are the details we received:\n"\
         f"your name: {first_name},\n last name: {last_name} \n date:{date}\n We will get in touch soon!"
-        print(message_body)
-        print(app.config["MAIL_PASSWORD"])
         message=Message(subject="New Form Submission",sender=app.config["MAIL_USERNAME"],
                 recipients=[email],body=message_body)
         mail.send(message)
         flash(f"{first_name}, your form was sent successfully!","success")
-        print("You Here!")
 
     return render_template("index.html")
     
