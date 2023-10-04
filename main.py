@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -21,6 +21,7 @@ class Form(db.Model):
 def index():
     if request.method=="POST":
         # the method looks for the 'name' attribute of the tags in <div>
+        
         first_name = request.form["first-name"]
         last_name = request.form["last-name"]
         email = request.form["email"]
@@ -31,6 +32,8 @@ def index():
         form = Form(name=first_name,surname=last_name,email=email,date=date_obj,occupation=occupation)
         db.session.add(form)
         db.session.commit()
+        flash(f"{first_name}, your form was sent successfully!","success")
+        print("You Here!")
 
     return render_template("index.html")
     
